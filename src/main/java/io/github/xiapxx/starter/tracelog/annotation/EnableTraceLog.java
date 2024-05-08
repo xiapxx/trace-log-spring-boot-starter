@@ -36,13 +36,6 @@ public @interface EnableTraceLog {
     boolean controllerLog() default true;
 
     /**
-     * 是否记录feign层的日志
-     *
-     * @return true/false
-     */
-    boolean feignLog() default true;
-
-    /**
      * 是否记录restTemplate的日志
      *
      * @return true/false
