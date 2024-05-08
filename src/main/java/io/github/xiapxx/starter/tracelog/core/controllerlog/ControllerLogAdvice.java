@@ -73,7 +73,7 @@ public class ControllerLogAdvice implements MethodInterceptor {
             }
             StringJoiner logJoiner = new StringJoiner("\n");
             logJoiner.add("");
-            logJoiner.add("======================================================================================");
+            logJoiner.add("===================================controller==================================");
             logJoiner.add(controllerLogContext.getHttpServletRequest().getMethod() + " " + controllerLogContext.getHttpServletRequest().getRequestURL().toString());
             logJoiner.add("request : ");
             logJoiner.add(paramTransfer.inputParamToString(controllerLogContext.getMethod().getParameters(), controllerLogContext.getArgs()));
@@ -82,7 +82,7 @@ public class ControllerLogAdvice implements MethodInterceptor {
                 logJoiner.add(paramTransfer.outputParamToString(controllerLogContext.getResult()));
             }
             logJoiner.add("Usage time : " + (System.currentTimeMillis() - controllerLogContext.getStartTimeMills()) + "ms");
-            logJoiner.add("======================================================================================");
+            logJoiner.add("===================================controller==================================");
             logJoiner.add("");
             if(controllerLogContext.getError() == null){
                 log.info(logJoiner.toString());

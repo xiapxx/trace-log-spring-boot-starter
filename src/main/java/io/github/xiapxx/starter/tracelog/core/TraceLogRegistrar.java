@@ -2,6 +2,7 @@ package io.github.xiapxx.starter.tracelog.core;
 
 import io.github.xiapxx.starter.tracelog.annotation.EnableTraceLog;
 import io.github.xiapxx.starter.tracelog.core.controllerlog.ControllerLogPointcutAdvisor;
+import io.github.xiapxx.starter.tracelog.core.resttemplatelog.RestTemplateLogRegistrar;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
@@ -22,6 +23,23 @@ public class TraceLogRegistrar implements ImportBeanDefinitionRegistrar {
         String[] basePackages = annoAttrs.getStringArray("basePackages");
         boolean controllerLog = annoAttrs.getBoolean("controllerLog");
         registerControllerLog(registry, basePackages, controllerLog);
+
+        boolean restTemplateLog = annoAttrs.getBoolean("restTemplateLog");
+        registerRestTemplateLog(registry, restTemplateLog);
+    }
+
+    /**
+     * 注册RestTemplate日志
+     *
+     * @param registry registry
+     * @param restTemplateLog 是否注册RestTemplate日志
+     */
+    private void registerRestTemplateLog(BeanDefinitionRegistry registry, boolean restTemplateLog){
+        if(!restTemplateLog){
+            return;
+        }
+        BeanDefinitionBuilder beanDefinitionBuilder = BeanDefinitionBuilder.genericBeanDefinition(RestTemplateLogRegistrar.class);
+        registry.registerBeanDefinition(RestTemplateLogRegistrar.class.getName(), beanDefinitionBuilder.getBeanDefinition());
     }
 
     /**
@@ -42,7 +60,7 @@ public class TraceLogRegistrar implements ImportBeanDefinitionRegistrar {
      * @param controllerLog controllerLog
      */
     private void registerControllerLog(BeanDefinitionRegistry registry, String[] basePackages, boolean controllerLog){
-        if(!controllerLog){
+        if(!controllerLog || basePackages == null || basePackages.length == 0){
             return;
         }
         try {
