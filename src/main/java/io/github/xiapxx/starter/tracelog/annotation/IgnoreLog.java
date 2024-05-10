@@ -11,7 +11,7 @@ import java.lang.annotation.Target;
  * @Date 2024-04-23 11:35
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.METHOD)
+@Target({ElementType.TYPE, ElementType.METHOD})
 @Documented
 public @interface IgnoreLog {
 }

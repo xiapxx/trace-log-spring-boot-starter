@@ -55,7 +55,7 @@ public class ControllerLogPointcutAdvisor extends AbstractPointcutAdvisor {
                     if(!basePackageList.stream().anyMatch(basePackage -> match(targetClassName, packageName, basePackage))){
                         return false;
                     }
-                    if(method.isAnnotationPresent(IgnoreLog.class)){
+                    if(targetClass.isAnnotationPresent(IgnoreLog.class) || method.isAnnotationPresent(IgnoreLog.class)){
                         return false;
                     }
                     return targetClass.isAnnotationPresent(Controller.class) || targetClass.isAnnotationPresent(RestController.class);
